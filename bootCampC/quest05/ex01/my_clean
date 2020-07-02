@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find . -regextype posix-extended -regex './*(^#*#$)|(.+~$)' -delete -print
