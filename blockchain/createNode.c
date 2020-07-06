@@ -29,13 +29,13 @@ int createNode(GlobalNode* nodes, int nid)
         nodes->tailNode->nextNode = node;
     }
     nodes->tailNode = node;
-    
+
 
     //adjunct array managments
     {
-        register int idErr = nodes->idErr;
-        register int id = node->id;
-        register int nbr = nodes->nbrNodes;
+        int idErr = nodes->idErr;
+        int id = node->id;
+        int nbr = nodes->nbrNodes;
         nodes->timeById[id-idErr] = 0;
         nodes->bNbrById[id-idErr] = 0;
         nodes->nidById[id-idErr] = nid;
@@ -122,7 +122,8 @@ int hashTgetIndex(GlobalNode* nodes, Node* node, int exact)
         if( ret == INT_MIN && exact == EMPTY )
         {
             return tmpNid;
-        }else if( ret != TOMBSTONE && exact == EXACT )
+                        //added ret != INT_MIN /****************************************************************/
+        }else if( ret != TOMBSTONE && ret != INT_MIN && exact == EXACT )
         {
             printf("nodes->nidById[%d]\n", ret);
             ret = nodes->nidById[ret-nodes->idErr];

@@ -4,25 +4,25 @@ int reallocArr(GlobalNode* nodes)
 {
     bool capChange = false;
     int span = nodes->nextNodeId - nodes->idErr;
-    int nbr = nodes->nbrNodes;
     int cap = nodes->cap;
-    int initCapacity = nodes->initCapacity;
 
     //there are two variants
         //nbr of node is larger
         //nbr is smaller, but id is shifted
-    if( span > cap * ( 1- initSaturation ) )
+    /** add minimal and maximal saturation in reallocArr **/
+    if( span > nodes->cap * ( 1- initSaturation ) )
     {
         capChange = true;
-        if( /*cap > nodes->initCapacity &&*/ nbr > cap / (1+initSaturation) )  nodes->cap = cap*2;
+        if( /*cap > nodes->initCapacity &&*/ nodes->nbrNodes > nodes->cap / (1+initSaturation) )  nodes->cap *= 2;
     }
-    else if(nbr > nodes->initCapacity && nbr < cap/( 2+initSaturation ) )
+    else if(nodes->cap > nodes->initCapacity && nodes->nbrNodes < nodes->cap/( 5+initSaturation ) )
     {
+        printf("run \n\n\n");
         capChange = true;
-        nodes->cap = cap/2;
+        nodes->cap /= 2;
     }
 
-    if( capChange )
+    if( capChange == true )
     {//allocate new arrays
         int *heapNodes = nodes->heapNodes;
         int *posMap = nodes->posMapNodesById;
@@ -30,15 +30,18 @@ int reallocArr(GlobalNode* nodes)
         int *blockNbr = nodes->bNbrById;
         int *time = nodes->timeById;
 
+        int oldIdErr = nodes->idErr;
+        int newShift=0;
+
         //get new idErr
         for(int i=nodes->idErr; i<nodes->cap; i++)
             if( nidById[i] != INT_MIN )
             {
-                nodes->idErr = i;
+                nodes->idErr = i + oldIdErr;
+                newShift = i;
                 break;
             }
-        
-
+        if(newShift == 0 && nodes->nbrNodes == 0) nodes->idErr = nodes->nextNodeId;
 
         nodes->heapNodes = malloc(nodes->cap * sizeof(int));
         nodes->posMapNodesById = malloc(nodes->cap * sizeof(int));
@@ -48,18 +51,17 @@ int reallocArr(GlobalNode* nodes)
         /////////////directed
         initArr(nodes, NON_HASH);
         cap = cap < nodes->cap ? cap : nodes->cap;
-        int register idErr = nodes->idErr;
-        for(register int i=0 + nodes->idErr; i<cap; i++)
+        int register nextNodeId = nodes->nextNodeId;
+        printf("\n\nnewShift = %d\nnextNodeId = %d\n\n", newShift, nextNodeId);
+        for(register int i= newShift; i<nextNodeId && i-newShift<cap; i++)
         {
-            //heapNodes index is not id
-            nodes->heapNodes[i-idErr] = heapNodes[i-idErr];
-            nodes->posMapNodesById[i-idErr] = posMap[i];
-            nodes->nidById[i-idErr] = nidById[i];
-            nodes->bNbrById[i-idErr] = blockNbr[i];
-            nodes->timeById[i-idErr] = time[i];
+            nodes->posMapNodesById[i-newShift] = posMap[i];
+            nodes->nidById[i-newShift] = nidById[i];
+            nodes->bNbrById[i-newShift] = blockNbr[i];
+            nodes->timeById[i-newShift] = time[i];
         }
         //as heapNodes is  not array => do not skip 0 - idErr interval
-        for(register int i=0; i<idErr; i++)
+        for(register int i=0; i<cap; i++)
             nodes->heapNodes[i] = heapNodes[i];
         free(heapNodes);
         free(posMap);
@@ -71,14 +73,22 @@ int reallocArr(GlobalNode* nodes)
     capChange = false;
 
     //deal with hash table
-    if(nodes->hashed > 0.75 * nodes->hashSize) capChange = true;
-    else if( nodes->hashSize > nodes->initHash
-            && nodes->hashed < nodes->hashSize*0.25)
-        
-    
-    if( capChange )
+    /** add minimal and maximal saturation in reallocArr **/
+    if(nodes->hashed > (1 - initSaturation) * nodes->hashSize)
     {
-        nodes->hashSize *= 2;
+        capChange = true;
+        if(nodes->nbrNodes > (1 - initSaturation) * nodes->hashSize) nodes->hashSize *=2;
+    }
+    else if( nodes->hashSize > nodes->initHash
+            && nodes->nbrNodes < nodes->hashSize/( 5+initSaturation )) 
+    {
+        nodes->hashSize /= 2;
+        capChange = true;
+    }
+    
+    if( capChange == true )
+    {
+        
         nodes->hashed = 0;
         freeThemAll(nodes, HASH);
         nodes->idByNid = malloc(nodes->hashSize * sizeof(int));

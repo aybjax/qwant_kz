@@ -5,24 +5,29 @@ int rmNode(GlobalNode* nodes, int nid)
     Node* node = nodes->headNode;
     Node* prev = NULL;
 
-    register int i;
+    //nodes->nbrNodes not informative;
+        //because highest id does not correspond to nbr of nodes
     register int nbr = nodes->nbrNodes;
+    
+    //this was added before introduction of while loop
+    //register int iterate = nodes->nextNodeId;
+    
+    register int/* id, cap,*/i = 0, nodeId = nid;
 
-    register int id, cap, nodeId = nid;
-
-    for(i=0; i< nbr; i++)
+    //for(/*i=0*/i = nodes->idErr; i< iterate; i++)
+    while(node != NULL)
     {
-        if(nodeId == INT_MAX) break;
         //delete all if * is given
+        if(nodeId == INT_MAX) break;
+
         if(node->nid == nodeId)
         {
-            //1st adjunct array managments
+            //1st: adjunct array managments
             {
                 //printf("\n\n*********-I was here***********\n\n");
                 
                 int register pos;
                 register int id = node->id;
-                register int nbr = nodes->nbrNodes;
                 register int idErr = nodes->idErr;
                 //printf("id is %d\n", id);
                 //printf("i is %i\n", i);
@@ -44,7 +49,6 @@ int rmNode(GlobalNode* nodes, int nid)
                 ////get last el id
                 //int lastId = nodes->heapNodes[nodes->nbrNodes-1];
 
-
                 drownId(nodes, id);
                 pos = nodes->posMapNodesById[id-idErr];
                 //printf("pos is %d\n", pos);
@@ -61,7 +65,7 @@ int rmNode(GlobalNode* nodes, int nid)
                 //no need if deleting all nodes
             if(i==0)
             {
-                if(nodes->nbrNodes == 1)
+                if(nbr == 1)
                 {   //if was the only node
                     nodes->tailNode = NULL;
                     nodes->headNode = NULL;
@@ -93,6 +97,7 @@ int rmNode(GlobalNode* nodes, int nid)
         //if NOT deleting all keep searching
         prev = node;
         node = node->nextNode;
+        i++;
     }
 
     if(nid == INT_MAX)

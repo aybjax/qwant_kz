@@ -47,7 +47,7 @@ int initBlockChain( GlobalNode* nodes, int nbrOfNodes, Node* node, Block* block 
     /*
     initialize properties of nodes
     */
-    //de nove creation
+    //de novo creation
     //baseline data
     nodes->idErr = 0;
     nodes->nextNodeId = 0;
@@ -59,7 +59,7 @@ int initBlockChain( GlobalNode* nodes, int nbrOfNodes, Node* node, Block* block 
     nodes->tailNode = NULL;
     //depricated
     //nodes->headBlock = NULL;
-
+    
     
     if (nbrOfNodes > 0)
     {   //if retrieving from saved file

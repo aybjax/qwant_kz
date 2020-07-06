@@ -40,12 +40,18 @@ int floatId(GlobalNode* nodes, int id)
 }
 
 //changes position in heap by id
-int swapHeap(GlobalNode* nodes, int pos1, int pos2)
+int swapHeap(GlobalNode* nodes, /*int pos1, int pos2*/ int id1, int id2)
 {
-    int id1 = nodes->heapNodes[pos1];
-    int id2 = nodes->heapNodes[pos2];
+
+    //int id1 = nodes->heapNodes[pos1];
+    //int id2 = nodes->heapNodes[pos2];
+
     int idErr = nodes->idErr;
     
+    //correction
+    int pos1 = nodes->posMapNodesById[id1-idErr];
+    int pos2 = nodes->posMapNodesById[id2-idErr];
+
     //do swapping
     nodes->posMapNodesById[id1 - idErr] = pos2;
     nodes->heapNodes[pos2] = id1;

@@ -6,7 +6,7 @@ int rmBlock(GlobalNode* nodes, int bid)
 
     while(node != NULL)
     {
-        deleteBlock(node, bid);
+        deleteBlock(nodes, node, bid);
         node = node->nextNode;
     }
     //depricated
@@ -15,7 +15,7 @@ int rmBlock(GlobalNode* nodes, int bid)
     return 0;
 }
 
-int deleteBlock(Node* node, int bid)
+int deleteBlock(GlobalNode* nodes, Node* node, int bid)
 {
     if( !bidExists(node, bid) )
     {
@@ -39,6 +39,13 @@ int deleteBlock(Node* node, int bid)
                 next->prevBlock=curr->prevBlock;
             }
             free(curr);
+            
+            nodes->bNbrById[node->id - nodes->idErr] = --node->blockNbr;
+            //get time in seconds
+            node->timestamp = time(NULL);
+            if(node->blockNbr > 0) nodes->timeById[node->id - nodes->idErr] = node->timestamp;
+            else nodes->timeById[node->id - nodes->idErr] = 0;
+
             break;
         }
 

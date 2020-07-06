@@ -1,6 +1,8 @@
-//assumptions
+//assumptions - search for exact text if want to know where used
 /** new node is  always empty **/
-
+/** use id-idErr only when dealiing with arrays, not fnx **/
+/** add minimal and maximal saturation in reallocArr **/
+/** cn use incomplete commands **/
 
 /*
 **
@@ -141,6 +143,7 @@ typedef struct node
     int nid;
     int blockNbr;
     //seconds
+        //redundant info(as it is in arrays)
     time_t timestamp;
     struct node* nextNode;
     Block* block;
@@ -221,7 +224,7 @@ int mostSignBit(int size);
 int updateArr(GlobalNode* nodes);
 
 //inside updateArr
-int swapHeap(GlobalNode* nodes, int pos1, int pos2);
+int swapHeap(GlobalNode* nodes, /*int pos1, int pos2*/int id1, int id2);
 int drownId(GlobalNode* nodes, int id);
 int floatHeap(GlobalNode* nodes, int id);
 int cmpHeap(GlobalNode* nodes, int pos1, int pos2);
@@ -294,7 +297,7 @@ int cpynodeMetaData(Node* blockNode, Node* node);
 int deleteBlockChain(Block* block);
 
 //inside rmBLock
-int deleteBlock(Node* node, int bid);
+int deleteBlock(GlobalNode* nodes, Node* node, int bid);
 
 bool bidExists(Node* node, int bid);
 

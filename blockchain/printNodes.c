@@ -19,9 +19,11 @@ void printNodes(GlobalNode* nodes)
     ROW printf("\tsynced? => %s\n", nodes->syncd == NODES_SYNCD ? "yes" : "no");
     ROW printf("\tnumber of nodes => %d\n", nodes->nbrNodes);
     ROW printf("\tid of next node => %d\n", nodes->nextNodeId);
+    ROW printf("\tinitial adj array size => %d\n", nodes->initCapacity);
+    ROW printf("\tinit hash table size => %d\n", nodes->initHash);
     ROW printf("\tcapacity of adjunct arrays => %d\n", nodes->cap);
     ROW printf("\tcapacity of hashTable => %d\n", nodes->hashSize);
-    ROW printf("\tnumber of filled cells in HT => %d\n", nodes->hashed);
+    ROW printf("\tnumber of filled cells in syHT => %d\n", nodes->hashed);
     ROW printf("\n");
 
 printf("/****************************************************************************/\n");
