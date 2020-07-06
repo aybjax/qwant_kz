@@ -34,9 +34,10 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
             return -1;
         }
 
-        nodes->bNbrById[node->id] = ++node->blockNbr;
+        nodes->bNbrById[node->id - nodes->idErr] = ++node->blockNbr;
         //get time in seconds
-        nodes->timeById [node->id] = time(NULL);
+        node->timestamp = time(NULL);
+        nodes->timeById [node->id - nodes->idErr] = node->timestamp;
 
         if(node->blockNbr == 1)
         {   //very first block

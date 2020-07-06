@@ -159,6 +159,7 @@ int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
             }
             //printf("from LIST is %s\n", LIST[*index][j]);
             
+            /** cn use incomplete commands **/
             //if comment the if clause, cn write q instead of quit
             //if(LIST[*index][j][++k] != SPACE || LIST[*index][j][++k] != 0) return -1;
             
