@@ -55,7 +55,7 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         {//then only one node is updated
             if(nodes->nbrNodes!=1)
             {//if the not the only one node
-                setSyncd(nodes);
+                nodes->syncd = NODES_NOT_SYNCD;
             }
             break;
         }
@@ -66,6 +66,9 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         }
     }
 
+    if(nid == INT_MAX)
+        setSyncd(nodes);
+    
     //depricated
     //nodes->headBlock = block;
 

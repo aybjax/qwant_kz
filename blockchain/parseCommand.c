@@ -44,6 +44,10 @@ int parseCommand(GlobalNode* nodes, int* commands, int len)
                 ret = createBlock(nodes, commands[i], commands[2]);
                 printf("creatBlock(%d, %d) executed\n", commands[2], commands[i]);
             }
+            //inside createBlock, setSyncd runs only if * is given as arguments
+                //therefore need to make sure if instead of *, user provides
+                //all nodes manually
+            if(len > 4) setSyncd(nodes);
         }
     }else if(firstCommand==RM)
     {   //rm node nid*

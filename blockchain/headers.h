@@ -3,6 +3,8 @@
 /** use id-idErr only when dealiing with arrays, not fnx **/
 /** add minimal and maximal saturation in reallocArr **/
 /** cn use incomplete commands **/
+/** even if all nodes have same block compositions,
+ *       time of creation of outermost block matters **/
 
 /*
 **
@@ -14,7 +16,6 @@
 #include <limits.h>
 #include <string.h>
 #include <unistd.h>
-#include <time.h>
 
 
 /*
@@ -261,6 +262,7 @@ int syncNodes(GlobalNode* nodes);
 //in syncNodes
 bool isSyncd(GlobalNode* nodes);
 int setSyncd(GlobalNode* nodes);
+bool traverseAllBlocks(GlobalNode* nodes);
 
 /*
 **
@@ -282,7 +284,7 @@ int hashTgetIndex(GlobalNode* nodes, Node* node, int exact);
 int* retriveCommandFromBuff(char* buff, int* ret);
 int interval_atoi(char* buff, int beg, int end);
 int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end);
-int my_pow(int base, int power)
+int my_pow(int base, int power);
 /*
 **
 */
