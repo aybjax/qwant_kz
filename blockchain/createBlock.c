@@ -29,7 +29,7 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         Block* block = malloc(sizeof(Block));
         if ( block == NULL )
         {
-            nodes->syncd = NODES_NOT_SYNCD;
+            setSyncd(nodes);
             NO_RESOURCE;
             return -1;
         }
@@ -66,6 +66,9 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         }
     }
 
+    if(nid == INT_MAX)
+        setSyncd(nodes);
+    
     //depricated
     //nodes->headBlock = block;
 

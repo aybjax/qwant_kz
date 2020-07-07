@@ -102,3 +102,89 @@ int deleteBlockChain(Block* block)
         block = prev;
     }
 }
+
+
+bool isSyncd(GlobalNode* nodes)
+{
+    int firstBlockNbr = -1;
+    int firstTime = -1;
+
+    for(register int i=0; i < nodes->nextNodeId; i++)
+    {
+        if(nodes->bNbrById[i] == INT_MIN) continue;
+        if(firstBlockNbr == -1)
+        {
+            firstBlockNbr = nodes->bNbrById[i];
+            firstTime = nodes->timeById[i];
+            printf("nbr - %d \t time - %d\n", firstBlockNbr, firstTime);
+            continue;
+        }else
+        {
+            if(firstBlockNbr != nodes->bNbrById[i]) return false;
+            printf("same block nbr\n");
+            /** even if all nodes have same block compositions,
+            *       time of creation of outermost block matters **/
+            if(firstTime != nodes->timeById[i]) return false;
+            printf("same time nbr\n");
+        }
+        
+    }
+
+    printf("before traversal\n\n");
+    if(traverseAllBlocks(nodes) == false) return false;
+    printf("after traversal\n\n");
+
+    return true;
+}
+
+int setSyncd(GlobalNode* nodes)
+{
+    if(isSyncd(nodes) == true)
+    {
+        nodes->syncd = NODES_SYNCD;
+        return 0;
+    }
+    nodes->syncd = NODES_NOT_SYNCD;
+    return 1;
+}
+
+//assumes that all nodes have same nbr of blocks
+bool traverseAllBlocks(GlobalNode* nodes)
+{
+    bool ret;
+    int i = 0;
+    int arrSize = nodes->nbrNodes;
+    printf("arrSize is %d\n", arrSize);
+    if (arrSize == 0) return true;
+    Block** arrBlocks = malloc(sizeof(Block) * arrSize);
+    Node* tmpNode = nodes->headNode;
+    
+    while( tmpNode != NULL)
+    {
+        printf("i is %i\n", i);
+        printf("tmpNode is %p\n", tmpNode);
+        printf("nextNode is %p\n", tmpNode->nextNode);
+        arrBlocks[i++] = tmpNode->block;
+        tmpNode = tmpNode->nextNode;
+    }
+
+    while(arrBlocks[0] != NULL)
+    {
+        for(i=1; i<arrSize; i++)
+        {
+            if(mine_strcmp(arrBlocks[i-1]->bid, arrBlocks[i]->bid) == -1) 
+            {
+                free(arrBlocks);
+                goto traverseAllBlocks;
+            }
+            arrBlocks[i-1] = arrBlocks[i-1]->prevBlock;
+        }
+        //because i overflows (i is not less than arrSize)
+        arrBlocks[i-1] = arrBlocks[i-1]->prevBlock;
+    }
+
+    free(arrBlocks);
+    return true;
+    traverseAllBlocks:
+    return false;
+}

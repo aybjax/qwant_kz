@@ -50,7 +50,7 @@ int createNode(GlobalNode* nodes, int nid)
         //=> synchronization is lost if there was some nodes before
         if(nodes->nbrNodes != 1 /* && nodes->headBlock != NULL*/)
         {
-            nodes->syncd = NODES_NOT_SYNCD;
+            setSyncd(nodes);
         }
     }
     //never happens
