@@ -258,6 +258,9 @@ int hashTrm(GlobalNode* nodes, Node* node);
 int rmBlock(GlobalNode* nodes, int bid);
 
 int syncNodes(GlobalNode* nodes);
+//in syncNodes
+bool isSyncd(GlobalNode* nodes);
+int setSyncd(GlobalNode* nodes);
 
 /*
 **
@@ -279,6 +282,7 @@ int hashTgetIndex(GlobalNode* nodes, Node* node, int exact);
 int* retriveCommandFromBuff(char* buff, int* ret);
 int interval_atoi(char* buff, int beg, int end);
 int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end);
+int my_pow(int base, int power)
 /*
 **
 */

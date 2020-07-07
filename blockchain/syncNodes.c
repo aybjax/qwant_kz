@@ -102,3 +102,39 @@ int deleteBlockChain(Block* block)
         block = prev;
     }
 }
+
+
+bool isSyncd(GlobalNode* nodes)
+{
+    int firstBlockNbr = -1;
+    int firstTime = -1;
+
+    for(register int i=0; i < nodes->nextNodeId; i++)
+    {
+        if(nodes->bNbrById[i] == INT_MIN) continue;
+        if(firstBlockNbr == -1)
+        {
+            firstBlockNbr = nodes->bNbrById[i];
+            firstTime = nodes->timeById[i];
+            continue;
+        }else
+        {
+            if(firstBlockNbr != nodes->bNbrById[i]) return false;
+            else if(firstTime != nodes->bNbrById[i]) return false;
+        }
+        
+    }
+
+    return true;
+}
+
+int setSyncd(GlobalNode* nodes)
+{
+    if(isSyncd == true)
+    {
+        nodes->syncd = NODES_SYNCD;
+        return 0;
+    }
+    nodes->syncd = NODES_NOT_SYNCD;
+    return 1;
+}

@@ -52,10 +52,10 @@ int* retriveCommandFromBuff(char* buff, int* ret)
         //printf("%d", t);
     }
     //printf("\n");
-    for(int t=0; t<spacesIndex; t++)
-    {
-        //printf("%d", spaces[t]);
-    }
+    //for(int t=0; t<spacesIndex; t++)
+    //{
+    //    printf("%d", spaces[t]);
+    //}
     //printf("\n");
     spacesIndex = 0;
 
@@ -114,10 +114,9 @@ int interval_atoi(char* buff, int beg, int end)
         if(buff[i]>='0' && buff[i]<='9')
         {
             if(++multiple!=0)
-                ret += (buff[i]-'0') * 10 * multiple;
+                ret += (buff[i]-'0') * my_pow(10, multiple);
             else
                 ret += (buff[i]-'0');
-            //printf("multiple is %d\n", multiple);
         }
         else if(buff[i] == '*')
         {
@@ -129,8 +128,6 @@ int interval_atoi(char* buff, int beg, int end)
 
 int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
 {
-    //printf("\nbuff is ::%s\nbeg is %d, end is %d, index is %d\n", buff, beg, end, *index);
-    
     //in globalConstants.c
     extern const char* LIST[2][5];
 
@@ -170,4 +167,11 @@ int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
         //0 at index 0 is add, 1 at 0 - rm, 1 at 1 is block
     commands[*index] = j;
     return 0;
+}
+
+int my_pow(int base, int power)
+{
+    if(power == 1) return base;
+    if(power == 0) return 1;
+    return base * my_pow(base, power-1);
 }

@@ -29,7 +29,7 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         Block* block = malloc(sizeof(Block));
         if ( block == NULL )
         {
-            nodes->syncd = NODES_NOT_SYNCD;
+            setSyncd(nodes);
             NO_RESOURCE;
             return -1;
         }
@@ -55,7 +55,7 @@ int /*block* bolfan*/ createBlock(GlobalNode* nodes, int nid, int bid)
         {//then only one node is updated
             if(nodes->nbrNodes!=1)
             {//if the not the only one node
-                nodes->syncd = NODES_NOT_SYNCD;
+                setSyncd(nodes);
             }
             break;
         }

@@ -5,7 +5,7 @@ all: blockchain
 blockchain:
 	gcc -g -fsanitize=address *.c headers.h -o blockchain
 run:
-	clear && ./blockchain ; rm blockchain
+	clear && ./blockchain -l ; rm blockchain
 w:
 	gcc -g -fsanitize=address -Wall -Wextra -Werror *.c headers.h -o blockchain
 d:

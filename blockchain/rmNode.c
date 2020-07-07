@@ -106,7 +106,7 @@ int rmNode(GlobalNode* nodes, int nid)
         initArr(nodes, ALL);
         nodes->tailNode = NULL;
         nodes->headNode = NULL;
-        nodes->syncd = NODES_SYNCD;
+        setSyncd(nodes);
         nodes->nbrNodes = 0;
         nodes->nextNodeId = 0;
 

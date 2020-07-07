@@ -16,9 +16,10 @@ int main()
         printf("errors\n");
         return 1;
     }
-    
+
     do
     {
+        
         commands = getCommand(nodes, &ret);
         printCommand(commands, ret);
         ret = parseCommand(nodes, commands, ret);
