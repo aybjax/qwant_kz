@@ -10,8 +10,28 @@ int syncNodes(GlobalNode* nodes)
     //if(nodes->headBlock == NULL) return 1;
 
     reNewEachNodeBlock(nodes);
+    reNewAdjArr(nodes);
 
     nodes->syncd = NODES_SYNCD;
+
+    return 0;
+}
+
+int reNewAdjArr(GlobalNode* nodes)
+{
+    int id = nodes->heapNodes[0];
+    int maxId = nodes->nextNodeId;
+    id = nodes->nidById[id - nodes->idErr];
+    Node* node = getNodeByNid(nodes, id);
+    int bTime = node->timestamp;
+    int blockNbr = node->blockNbr;
+
+    for(int i=0; i<maxId; i++)
+    {
+        if(nodes->bNbrById[i] == INT_MIN) continue;
+        nodes->bNbrById[i] = blockNbr;
+        nodes->timeById[i] = bTime;
+    }
 
     return 0;
 }
