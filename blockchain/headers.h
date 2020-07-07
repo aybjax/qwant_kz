@@ -301,6 +301,7 @@ int createBlockChain(Node* node, Block* headBlock);
 int copyBlock(Block* block1, Block* block2);
 int cpynodeMetaData(Node* blockNode, Node* node);
 int deleteBlockChain(Block* block);
+int reNewAdjArr(GlobalNode* nodes);
 
 //inside rmBLock
 int deleteBlock(GlobalNode* nodes, Node* node, int bid);
