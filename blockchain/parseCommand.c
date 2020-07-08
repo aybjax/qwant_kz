@@ -16,8 +16,8 @@ int parseCommand(GlobalNode* nodes, int* commands, int len)
             printf("syncNode executed\n");
         }else if (firstCommand == LS)
         {
-            //your code here
-            firstCommand=LS;
+            ret = listNodes(nodes);
+            printf("LS -L executed\n");
         }else if (firstCommand == QUIT)
         {
             return QUIT;

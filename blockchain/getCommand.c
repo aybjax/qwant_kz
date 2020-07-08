@@ -75,26 +75,28 @@ int* retriveCommandFromBuff(char* buff, int* ret)
     //for(register int beg = 0, end; buff[beg] != 0; beg++)
     while(beg < buffLen)
     {
-        end=*(spaces+spacesIndex++);
+        //because ls -l command has space, we are not using end
+        //end=*(spaces+spacesIndex++);
+
         //printf("end is %d\n", end);
         //printf("index is %d\n", index);
         if (index < 2)
         {
-            getFirst2Commands(commands, &index, buff, beg, end);
+            getFirst2Commands(commands, &index, buff, beg, /*end*/spaces, spacesIndex);
             index++;
             //if command is sync/ quit / ls => only 1 argument
             if(commands[index-1]>=2) goto syncCommand;
         }
         else
         {
-            int val = interval_atoi(buff, beg, end);
+            int val = interval_atoi(buff, beg, *(spaces + spacesIndex));
             //printf("val is %d\n", val);
             commands[index++] = val;
         }
         //printf("command - %d\n", commands[index-1]);
 
         //fixed
-        beg = end+1;
+        beg = *(spaces + spacesIndex++)+1;
     }
     syncCommand:
     free(spaces);
@@ -126,7 +128,8 @@ int interval_atoi(char* buff, int beg, int end)
     return ret;
 }
 
-int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
+//end argument is replaced with spaces, spaceIndex => bc ls -l command has space
+int getFirst2Commands(int* commands, int* index, char* buff, int beg, int* spaces, int spaceIndex)
 {
     //in globalConstants.c
     extern const char* LIST[2][5];
@@ -148,7 +151,9 @@ int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
         //printf("\nLIST vs buff %c == %c\n", LIST[*index][j][0], buff[beg]);
         if( LIST[*index][j][0] == buff[beg])
         {
-            for(k = 1; k<STRINGLEN && beg+k < end; k++)
+            //ls -l command has a space
+            if(*index == 0 && j == 3) spaceIndex++;
+            for(k = 1; k<STRINGLEN && beg+k < *(spaces + spaceIndex); k++)
             {
                 //printf("LIST vs buff %c == %c", LIST[*index][j][k], buff[beg+k]);
                 if( LIST[*index][j][k] != buff[beg+k]) return -1;
@@ -157,8 +162,8 @@ int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end)
             //printf("from LIST is %s\n", LIST[*index][j]);
             
             /** cn use incomplete commands **/
-            //if comment the if clause, cn write q instead of quit
-            //if(LIST[*index][j][++k] != SPACE || LIST[*index][j][++k] != 0) return -1;
+            //if comment the if clause, cn write q, qu, qui instead of quit
+            //if(LIST[*index][j][k] != SPACE && LIST[*index][j][k] != 0) return -1;
             
             break;
         }
