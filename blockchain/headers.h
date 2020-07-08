@@ -74,6 +74,12 @@
 /*
 **
 */
+//macros in listNodes
+//buffsize above
+
+/*
+**
+*/
 
 //macros in getCommand
 #define SPACE 32
@@ -82,7 +88,7 @@
 #define RM_STR "rm   "
 #define SYNC_STR "sync "
 #define QUIT_STR "quit "
-#define LS_STR "ls   "
+#define LSL_STR "ls -l"
 #define BLOCK_STR "block"
 #define NODE_STR "node "
 #define EMPTYCOMMAND "     "
@@ -283,7 +289,7 @@ int hashTgetIndex(GlobalNode* nodes, Node* node, int exact);
 //inside getCommand.c
 int* retriveCommandFromBuff(char* buff, int* ret);
 int interval_atoi(char* buff, int beg, int end);
-int getFirst2Commands(int* commands, int* index, char* buff, int beg, int end);
+int getFirst2Commands(int* commands, int* index, char* buff, int beg, /*int end*/int* spaces, int spaceIndex);
 int my_pow(int base, int power);
 /*
 **
@@ -312,3 +318,8 @@ bool bidExists(Node* node, int bid);
 int mine_strcmp(char* s1, char* s2);
 
 int reallocArr(GlobalNode* nodes);
+
+int listNodes(GlobalNode* nodes);
+//inside listNodes
+char* resizeBuffer(char* buffer, int buffPointer, int* buffSize);
+char* manageBufferSizeAndPointer(char* buffer, int* buffPointer, int* buffSize, int* ret);

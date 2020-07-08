@@ -17,7 +17,6 @@ int reallocArr(GlobalNode* nodes)
     }
     else if(nodes->cap > nodes->initCapacity && nodes->nbrNodes < nodes->cap/( 5+initSaturation ) )
     {
-        printf("run \n\n\n");
         capChange = true;
         nodes->cap /= 2;
     }
@@ -52,7 +51,6 @@ int reallocArr(GlobalNode* nodes)
         initArr(nodes, NON_HASH);
         cap = cap < nodes->cap ? cap : nodes->cap;
         int register nextNodeId = nodes->nextNodeId;
-        printf("\n\nnewShift = %d\nnextNodeId = %d\n\n", newShift, nextNodeId);
         for(register int i= newShift; i<nextNodeId && i-newShift<cap; i++)
         {
             nodes->posMapNodesById[i-newShift] = posMap[i];

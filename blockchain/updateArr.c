@@ -65,24 +65,24 @@ int swapHeap(GlobalNode* nodes, /*int pos1, int pos2*/ int id1, int id2)
 //if id1>id2 1, if reverse -1, if eq => 0
 int cmpHeap(GlobalNode* nodes, int pos1, int pos2)
 {
-    printf("cmpHEAP(%d, %d)\n", pos1, pos2);
+    //printf("cmpHEAP(%d, %d)\n", pos1, pos2);
     int id1, id2, block1, block2, time1, time2;
     id1 = nodes->heapNodes[pos1];
     id2 = nodes->heapNodes[pos2];
     //kerek emes
     if(id1 == INT_MIN && id2 == INT_MIN)
     {
-        printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, INT_MIN);
+        //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, INT_MIN);
         return INT_MIN;
     }
     if(id1 == INT_MIN)
     {
-        printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
+        //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
         return -1;;
     }
     if(id2 == INT_MIN)
     {
-        printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
+        //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
         return 1;;
     }
 
@@ -92,12 +92,12 @@ int cmpHeap(GlobalNode* nodes, int pos1, int pos2)
     //more blocks => bigger
     if(block1 > block2)
     {
-        printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
+        //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
         return 1;
     }
     else if(block1 < block2)
     {
-        printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
+        //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
         return -1;
     }
     else
@@ -107,16 +107,16 @@ int cmpHeap(GlobalNode* nodes, int pos1, int pos2)
         time2 = nodes->timeById[id2];
         if(time1 > time2)
         {
-            printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
+            //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 1);
             return 1;
         }
         else if(time1 < time2)
         {
-            printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
+            //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, -1);
             return -1;
         }
     }
-    printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 0);
+    //printf("cmpHEAP(%d, %d)=%d\n", pos1, pos2, 0);
     return 0;
 }
 

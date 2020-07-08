@@ -21,10 +21,10 @@ int main()
     {
         
         commands = getCommand(nodes, &ret);
-        printCommand(commands, ret);
+        //printCommand(commands, ret);
         ret = parseCommand(nodes, commands, ret);
         free(commands);
-        printNodes(nodes);
+        //printNodes(nodes);
     } while (ret != QUIT);
 
     //printNodes(nodes);
