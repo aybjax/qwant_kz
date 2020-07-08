@@ -264,6 +264,8 @@ int rmNode(GlobalNode* nodes, int nid);
 int hashTrm(GlobalNode* nodes, Node* node);
 
 int rmBlock(GlobalNode* nodes, int bid);
+//inside rmBLock
+int deleteBlock(GlobalNode* nodes, Node* node, int bid);
 
 int syncNodes(GlobalNode* nodes);
 //in syncNodes
@@ -296,6 +298,7 @@ int my_pow(int base, int power);
 **
 */
 
+
 int parseCommand(GlobalNode* nodes, int* commands, int len);
 
 Node* getNodeByNid(GlobalNode* nodes, int nid);
@@ -310,17 +313,15 @@ int cpynodeMetaData(Node* blockNode, Node* node);
 int deleteBlockChain(Block* block);
 int reNewAdjArr(GlobalNode* nodes);
 
-//inside rmBLock
-int deleteBlock(GlobalNode* nodes, Node* node, int bid);
-
 bool bidExists(Node* node, int bid);
-
-//in bifExists
+//in bidExists
 int mine_strcmp(char* s1, char* s2);
 
 int reallocArr(GlobalNode* nodes);
 
 int listNodes(GlobalNode* nodes);
 //inside listNodes
-char* resizeBuffer(char* buffer, int buffPointer, int* buffSize);
+int newBufferPointer(char* buffer, int buffPointer);
 char* manageBufferSizeAndPointer(char* buffer, int* buffPointer, int* buffSize, int* ret);
+char* resizeBuffer(char* buffer, int buffPointer, int* buffSize);
+int listBlocks(char* buffer, int* buffPointer, int* buffSize, char* bid);

@@ -1,10 +1,5 @@
 #include "headers.h"
 
-int newBufferPointer(char* buffer, int buffPointer);
-char* manageBufferSizeAndPointer(char* buffer, int* buffPointer, int* buffSize, int* ret);
-char* resizeBuffer(char* buffer, int buffPointer, int* buffSize);
-int listBlocks(char* buffer, int* buffPointer, int* buffSize, char* bid);
-
 int listNodes(GlobalNode* nodes)
 {
     int ret;
