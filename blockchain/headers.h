@@ -75,7 +75,8 @@
 **
 */
 //macros in listNodes
-//buffsize above
+#define LARGE_FRACTION 0.9
+#define SMALL_FRACTION 0.5
 
 /*
 **
