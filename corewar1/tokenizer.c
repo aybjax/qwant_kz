@@ -66,7 +66,7 @@ InitLines* tokenizer(int file)
             }
             initLexer->next = NULL;
             // data assignment
-            iniLexerFill(initLexer, tokens->array[i]);
+            initLexerFill(initLexer, tokens->array[i]);
             //
             tmpLexer = initLexer;
         }

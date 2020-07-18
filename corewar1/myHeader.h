@@ -138,7 +138,7 @@ char* my_strip(char* str_leave_only_one_space);
 
 InitLines* tokenizer(int file);
 
-int iniLexerFill(InitLexer* lexer, char* str);
+int initLexerFill(InitLexer* lexer, char* str);
 
 void freeInitLines(InitLines* initLines);
 
