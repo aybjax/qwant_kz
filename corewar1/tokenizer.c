@@ -101,13 +101,13 @@ char* addSpaceAndLowerSpace(char* line)
     }
     for(i=0, j=0; i<size; i++)
     {
-        if(line[i] == NEG_NUM || line[i] == COMMENT_CHAR || line[i] == LABEL_CHAR || line[i] == DIRECT_CHAR || line[i] == SEPARATOR_CHAR || line[i] == QUOTE_CHAR)
+        if(line[i] == COMMENT_CHAR || line[i] == LABEL_CHAR || line[i] == DIRECT_CHAR || line[i] == SEPARATOR_CHAR || line[i] == QUOTE_CHAR)
             if(i != 0) added[j++] = SPACE;
         
         if(line[i] >= 'A' && line[i] <= 'Z')
             added[j++] = line[i] + 'a' - 'A';
         else added[j++] = line[i];
-        if(line[i] == NEG_NUM || line[i] == COMMENT_CHAR || line[i] == LABEL_CHAR || line[i] == DIRECT_CHAR || line[i] == SEPARATOR_CHAR || line[i] == QUOTE_CHAR)
+        if(line[i] == COMMENT_CHAR || line[i] == LABEL_CHAR || line[i] == DIRECT_CHAR || line[i] == SEPARATOR_CHAR || line[i] == QUOTE_CHAR)
             added[j++] = SPACE;
     }
 
